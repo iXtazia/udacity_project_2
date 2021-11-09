@@ -1,4 +1,3 @@
 package com.udacity.asteroidradar.item
 
-class AsteroidItem {
-}
+data class AsteroidItem(val name: String, val date: String)
