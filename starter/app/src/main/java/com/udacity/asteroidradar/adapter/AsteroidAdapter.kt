@@ -1,14 +1,11 @@
 package com.udacity.asteroidradar.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.udacity.asteroidradar.R
-import com.udacity.asteroidradar.TextItemViewHolder
-import com.udacity.asteroidradar.database.Asteroid
 import com.udacity.asteroidradar.item.AsteroidItem
 import kotlinx.android.synthetic.main.asteroid_view.view.*
 
@@ -37,29 +34,4 @@ class AsteroidAdapter(private val asteroidList: List<AsteroidItem>) :
         val asteroidName: TextView = itemView.name_text_view
         val asteroidDate: TextView = itemView.date_text_view
     }
-
-
-//    private var data = listOf<Asteroid>()
-//
-//    @SuppressLint("NotifyDataSetChanged")
-//    set(value) {
-//        field = value
-//        notifyDataSetChanged()
-//    }
-//
-//    override fun getItemCount() = data.size
-//
-//    override fun onBindViewHolder(holder: TextItemViewHolder, position: Int) {
-//        val item = data[position]
-//        holder.textView.text = item.sleepQuality.toString()
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextItemViewHolder {
-//        val layoutInflater = LayoutInflater.from(parent.context)
-//        val view = layoutInflater.inflate(R.layout.asteroid_view, parent, false)
-//                as TextView
-//        return TextItemViewHolder(view)
-//    }
-
-
 }

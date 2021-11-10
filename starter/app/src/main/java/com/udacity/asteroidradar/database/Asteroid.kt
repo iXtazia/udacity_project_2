@@ -9,12 +9,24 @@ data class Asteroid(
     @PrimaryKey(autoGenerate = true)
     var asteroidId: Long = 0L,
 
-    @ColumnInfo(name = "start_time_milli")
-    val startTimeMilli: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "codename")
+    val codename: String = "",
 
-    @ColumnInfo(name = "end_time_milli")
-    var endTimeMilli: Long = startTimeMilli,
+    @ColumnInfo(name = "closeApproachDate")
+    var closeApproachDate: String = "",
 
-    @ColumnInfo(name = "quality_rating")
-    var sleepQuality: Int = -1
+    @ColumnInfo(name = "absoluteMagnitude")
+    var absoluteMagnitude: Double = 0.0,
+
+    @ColumnInfo(name = "estimatedDiameter")
+    var estimatedDiameter: Double = 0.0,
+
+    @ColumnInfo(name = "relativeVelocity")
+    var relativeVelocity: Double = 0.0,
+
+    @ColumnInfo(name = "distanceFromEarth")
+    var distanceFromEarth: Double = 0.0,
+
+    @ColumnInfo(name = "isPotentiallyHazardous")
+    var isPotentiallyHazardous: Boolean = false
 )

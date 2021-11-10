@@ -3,6 +3,8 @@ package com.udacity.asteroidradar.main
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -10,9 +12,13 @@ import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.MainActivity
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.adapter.AsteroidAdapter
+import com.udacity.asteroidradar.api.NasaAPI
+import com.udacity.asteroidradar.api.getNextSevenDaysFormattedDates
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 import com.udacity.asteroidradar.item.AsteroidItem
 import kotlinx.android.synthetic.main.fragment_main.*
+import java.lang.Exception
+import javax.security.auth.callback.Callback
 
 class MainFragment : Fragment() {
 
@@ -25,23 +31,13 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentMainBinding.inflate(inflater)
-        val data = arrayListOf<String>()
-
         val exempleList = generateItem(200)
 
-        println("test$exempleList")
-        asteroid_recycler.adapter = AsteroidAdapter(exempleList)
-        asteroid_recycler.layoutManager = LinearLayoutManager(this)
-        asteroid_recycler.setHasFixedSize(true)
-
-
-//        binding.lifecycleOwner = this
-//
-//        binding.viewModel = viewModel
-//        binding.asteroidRecycler.adapter = adapter
-
-//        viewModel.nights
-
+        binding.apply {
+            asteroidRecycler.adapter = AsteroidAdapter(exempleList)
+            asteroidRecycler.layoutManager = LinearLayoutManager(requireContext())
+            asteroidRecycler.setHasFixedSize(true)
+        }
 
         setHasOptionsMenu(true)
 
