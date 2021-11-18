@@ -1,50 +1,54 @@
 package com.udacity.asteroidradar
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.udacity.asteroidradar.adapter.AsteroidAdapter
 import com.udacity.asteroidradar.api.NasaAPI
+import com.udacity.asteroidradar.api.NasaApiService
+import com.udacity.asteroidradar.databinding.FragmentMainBinding
 import com.udacity.asteroidradar.item.AsteroidItem
+import kotlinx.android.synthetic.main.asteroid_view.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.lang.Exception
+import java.lang.StringBuilder
 
 class MainActivity : AppCompatActivity() {
-
-    private val _status = MutableLiveData<String>()
-    private val _property = MutableLiveData<Asteroid>()
-    val property: LiveData<Asteroid>
-        get() = _property
-
-    init {
-        getNasaProperties()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
 
-    private fun getNasaProperties() {
-        println("je rentre")
+        val retrofitBuilder = NasaAPI.retrofitService
 
-        try {
-            val listResult = NasaAPI.retrofitService.getProperties()
-            println("je rentre $listResult")
+        val retrofitData = retrofitBuilder.getProperties()
+        retrofitData.enqueue(object : Callback<List<Asteroid>> {
+            override fun onResponse(
+                call: Call<List<Asteroid>>,
+                response: Response<List<Asteroid>>
+            ) {
+                val responseBody = response.body()!!
 
-            _status.value = "Success: ${listResult.size} Nasa test"
-            println("ici" + _status.value)
+                var mystringBuilder = StringBuilder()
+                for (myData in responseBody) {
+                    mystringBuilder.append(myData.id)
+                    mystringBuilder.append("\n")
+                }
 
-            if (listResult.size > 0) {
-                _property.value = listResult[0]
-
+                name_text_view.text = mystringBuilder
             }
-        } catch (e: Exception) {
-            println("error" + e.message)
 
-            _status.value = "Failure: ${e.message}"
-        }
+            override fun onFailure(call: Call<List<Asteroid>>, t: Throwable) {
+                Log.d("MainActivity", "OnFailure: " + t.message)
+            }
+        })
     }
 }

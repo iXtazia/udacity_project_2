@@ -7,15 +7,17 @@ import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(ScalarsConverterFactory.create())
+val retrofit = Retrofit.Builder()
     .baseUrl(Constants.BASE_URL)
+    .addConverterFactory(ScalarsConverterFactory.create())
     .build()
-
 
 interface NasaApiService {
     @GET("neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=${Constants.API_KEY}")
-    fun getProperties(): List<Asteroid>
+    fun getProperties(): Call<List<Asteroid>>
+
+    @GET("planetary/apod?api_key=${Constants.API_KEY}")
+    fun getPictureOfTheDay(): Call<List<Asteroid>>
 }
 
 object NasaAPI {

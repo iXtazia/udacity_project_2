@@ -8,5 +8,5 @@ object Constants {
     const val BASE_URL = "https://api.nasa.gov/"
     const val API_KEY = "NkpPtcc7eBuja9cZaXo2wVohpuygV69ZFlCgvc0o"
     val START_DATE = getNextSevenDaysFormattedDates()[0]
-    val endDate = getNextSevenDaysFormattedDates()[7]
+    val END_DATE = getNextSevenDaysFormattedDates()[7]
 }
